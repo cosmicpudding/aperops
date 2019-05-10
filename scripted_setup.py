@@ -54,7 +54,7 @@ if ub7_bad:
 	if not dryrun:
 		os.system(cmd)
 
-	cmd = """ ssh -t apertif@ccu-corr.apertif '%s/applications/apertif/commissioning/central_status.sh apertif-dev %s 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 postcheck 0,1' """ % (rts,radio_hdl)
+	cmd = """ ssh -t apertif@ccu-corr.apertif '%s/applications/apertif/commissioning/central_status.sh apertif-dev %s 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 postcheck 0,1' """ % (radio_hdl,rts)
 	print(cmd)	
 	if not dryrun:
 		os.system(cmd)
