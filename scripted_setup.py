@@ -13,11 +13,15 @@ import sys
 com_desp = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/applications/apertif/commissioning/'
 radio_hdl = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/'
 rts = '2,3,4,5,6,7,8,9,a,b,c,d'
+rts = '23456789abcd'
 #sw_version = 'APERTIF-Release-190225_4-opt-Ubuntu14'
 sw_version = 'APERTIF-Release-190507_5-opt-Ubuntu14'
+sw_version_corr = 'ARTS-BusyWeek-May2019-opt-r10168-Ubuntu14-CCU-Corr'
+sw_version_rt = 'ARTS-BusyWeek-May2019-opt-r10129-Ubuntu14-LCU-RT'
 warm_start = True
-dryrun = False
+dryrun = True
 ub7_bad = True
+executor = True
 
 print('\n################################################################################\nSUMMARY OF COMMANDS SUBMITTED:')
 
@@ -40,7 +44,12 @@ if not dryrun:
 	os.system(cmd)
 
 if warm_start:
-	cmd = """ ssh -t apertif@ccu-corr.apertif  "python %s/main.py --app apertif-dev --tel %s --unb 0:15 --pol 0:1 --rerun" """ % (com_desp,rts)
+
+	if executor:
+
+		cmd = """ ssh -t apertif@ccu-corr.apertif "executor --run warm --ccu ccu-corr --telescopes %s --application apertif-dev" """ % (rts)
+	else:
+		cmd = """ ssh -t apertif@ccu-corr.apertif  "python %s/main.py --app apertif-dev --tel %s --unb 0:15 --pol 0:1 --rerun" """ % (com_desp,rts)
 else:
 	cmd = """ ssh -t apertif@ccu-corr.apertif  "python %s/main.py --app apertif-dev --tel %s --unb 0:15 --pol 0:1" """ % (com_desp,rts)
 print(cmd)
@@ -59,12 +68,12 @@ if ub7_bad:
 	if not dryrun:
 		os.system(cmd)
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version_rt)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version_corr)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
