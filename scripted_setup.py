@@ -21,7 +21,7 @@ sw_version_rt = 'ARTS-BusyWeek-May2019-opt-r10129-Ubuntu14'
 warm_start = True
 dryrun = True
 ub7_bad = True
-executor = True
+executor = False
 
 print('\n################################################################################\nSUMMARY OF COMMANDS SUBMITTED:')
 
