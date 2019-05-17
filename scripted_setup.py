@@ -43,6 +43,21 @@ print(cmd)
 if not dryrun:
 	os.system(cmd)
 
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version_rt)
+print(cmd)
+if not dryrun:
+	os.system("bash -c '{}'".format(cmd))
+
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version_corr)
+print(cmd)
+if not dryrun:
+	os.system("bash -c '{}'".format(cmd))
+
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version)
+print(cmd)
+if not dryrun:
+	os.system("bash -c '{}'".format(cmd))
+	
 if warm_start:
 
 	if executor:
@@ -75,20 +90,6 @@ if ub7_bad:
 	if not dryrun:
 		os.system(cmd)
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version_rt)
-print(cmd)
-if not dryrun:
-	os.system("bash -c '{}'".format(cmd))
-
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version_corr)
-print(cmd)
-if not dryrun:
-	os.system("bash -c '{}'".format(cmd))
-
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version)
-print(cmd)
-if not dryrun:
-	os.system("bash -c '{}'".format(cmd))
 
 cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -c -g all" """
 print(cmd)
