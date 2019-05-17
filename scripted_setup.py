@@ -58,6 +58,13 @@ if not dryrun:
 
 if ub7_bad:
 
+	# Read layout of firmware
+	cmd = """ ssh -t apertif@ccu-corr.apertif 'python /home/apertif/UniBoard_FP7/UniBoard/trunk/Software/python/peripherals/util_system_info.py --unb 0:15 --fn 0:3 --bn 0:3 -n 4' """
+	print(cmd)	
+	if not dryrun:
+		os.system(cmd)
+
+	# Disable link
 	cmd = """ ssh -t apertif@ccu-corr.apertif 'python $UPE/peripherals/util_dp_bsn_aligner.py --unb 7 --bn 1 -n 2 -r 0 -s INPUT' """
 	print(cmd)	
 	if not dryrun:
