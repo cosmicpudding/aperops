@@ -12,7 +12,7 @@ import sys
 # variables
 com_desp = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/applications/apertif/commissioning/'
 radio_hdl = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/'
-rts = '2,3,4,6,7,8,9,a,b,c,d'
+rts = '2,3,4,5,6,7,8,9,a,b,c,d'
 #rts = '23456789abcd'
 #sw_version = 'APERTIF-Release-190225_4-opt-Ubuntu14'
 sw_version = 'APERTIF-Release-190507_5-opt-Ubuntu14'
