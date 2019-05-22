@@ -13,13 +13,13 @@ import sys
 com_desp = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/applications/apertif/commissioning/'
 radio_hdl = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/'
 rts = '2,3,4,5,6,7,8,9,a,b,c,d'
-rts = '23456789abcd'
+#rts = '23456789abcd'
 #sw_version = 'APERTIF-Release-190225_4-opt-Ubuntu14'
 sw_version = 'APERTIF-Release-190507_5-opt-Ubuntu14'
 sw_version_corr = 'ARTS-BusyWeek-May2019-opt-r10168-Ubuntu14'
 sw_version_rt = 'ARTS-BusyWeek-May2019-opt-r10129-Ubuntu14'
 warm_start = True
-dryrun = True
+dryrun = False
 ub7_bad = True
 executor = False
 
@@ -43,12 +43,12 @@ print(cmd)
 if not dryrun:
 	os.system(cmd)
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version_rt)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version_corr)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
