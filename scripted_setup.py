@@ -20,7 +20,7 @@ sw_version_corr = 'ARTS-BusyWeek-May2019-opt-r10168-Ubuntu14'
 sw_version_rt = 'ARTS-BusyWeek-May2019-opt-r10129-Ubuntu14'
 warm_start = True
 dryrun = False
-ub7_bad = True
+ub7_bad = False
 executor = False
 
 print('\n################################################################################\nSUMMARY OF COMMANDS SUBMITTED:')
@@ -43,12 +43,12 @@ print(cmd)
 if not dryrun:
 	os.system(cmd)
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version_rt)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version_corr)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
