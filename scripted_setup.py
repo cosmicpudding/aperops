@@ -19,9 +19,10 @@ rts = '2,3,4,5,6,7,8,9,a,b,c,d'
 sw_version_corr = 'ARTS-BusyWeek-May2019-opt-r10168-Ubuntu14'
 #sw_version_rt = 'ARTS-BusyWeek-May2019-opt-r10129-Ubuntu14'
 sw_version = 'Task_3055-opt-r10239-Ubuntu14'
-warm_start = False
+warm_start = True
 dryrun = False
 ub7_bad = False
+ub5_bad = False
 executor = False
 
 print('\n################################################################################\nSUMMARY OF COMMANDS SUBMITTED:')
@@ -72,7 +73,7 @@ print(cmd)
 if not dryrun:
 	os.system(cmd)
 
-if ub7_bad:
+if ub7_bad or ub5_bad:
 
 	# Read layout of firmware
 	cmd = """ ssh -t apertif@ccu-corr.apertif 'python /home/apertif/UniBoard_FP7/UniBoard/trunk/Software/python/peripherals/util_system_info.py --unb 0:15 --fn 0:3 --bn 0:3 -n 4' """
@@ -80,11 +81,19 @@ if ub7_bad:
 	if not dryrun:
 		os.system(cmd)
 
-	# Disable link
-	cmd = """ ssh -t apertif@ccu-corr.apertif 'python $UPE/peripherals/util_dp_bsn_aligner.py --unb 7 --bn 1 -n 2 -r 0 -s INPUT' """
-	print(cmd)	
-	if not dryrun:
-		os.system(cmd)
+        if ub7_bad:
+                # Disable link
+                cmd = """ ssh -t apertif@ccu-corr.apertif 'python $UPE/peripherals/util_dp_bsn_aligner.py --unb 7 --bn 1 -n 2 -r 0 -s INPUT' """
+                print(cmd)	
+                if not dryrun:
+                        os.system(cmd)
+
+        if ub5_bad:
+                # Disable link                                                                                                                                                                                                         
+                cmd = """ ssh -t apertif@ccu-corr.apertif 'python $UPE/peripherals/util_dp_bsn_aligner.py --unb 5 --bn 1 -n 2 -r 0 -s INPUT' """
+                print(cmd)
+                if not dryrun:
+                        os.system(cmd)
 
 	cmd = """ ssh -t apertif@ccu-corr.apertif '%s/applications/apertif/commissioning/central_status.sh apertif-dev %s 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 postcheck 0,1' """ % (radio_hdl,rts)
 	print(cmd)	
