@@ -79,6 +79,8 @@ else:
 # Dry run
 if args.dryrun:
 	dryrun = True
+else:
+	dryrun = False
 
 # Specify telescopes
 rts = args.telescopes
