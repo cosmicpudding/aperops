@@ -1,5 +1,5 @@
 { "imaging": 
-	{"sw_corr" : "ARTS-BusyWeek-May2019-opt-r10168-Ubuntu14",
-	 "sw_rt"   : "Task_3055-opt-r10239-Ubuntu14",
-	 "sw_wcu"  : "Task_3055-opt-r10239-Ubuntu14"}
+	{"sw_corr" : "APERTIF-Release-2_0_1",
+	 "sw_rt"   : "APERTIF-Release-2_0_1",
+	 "sw_wcu"  : "APERTIF-Release-2_0_1"}
 }
