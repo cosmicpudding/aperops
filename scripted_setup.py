@@ -28,7 +28,7 @@ ub5_bad = False
 # executor = False
 
 # Get software
-sw = json.load(open('sw.json'))
+sw = json.load(open('./aperops/sw.json'))
 print(sw)
 # print(sw['imaging']['sw_corr'])
 # sys.exit()
