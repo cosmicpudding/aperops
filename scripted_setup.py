@@ -39,7 +39,7 @@ print(sw)
 # Load the software versions
 sw_version_corr = sw['imaging']['sw_corr']
 sw_version_rt = sw['imaging']['sw_rt']
-sw_version_wcu = sw['imaging']['sw_wcu']
+sw_version_dw = sw['imaging']['sw_dw']
 
 # Argument parsing
 parser = ArgumentParser(formatter_class=RawTextHelpFormatter)
@@ -85,7 +85,8 @@ else:
 # Specify telescopes
 rts = args.telescopes
 
-print('\n################################################################################\nRUNNING IN DRYRUN MODE!!!\n################################################################################')
+if dryrun:
+	print('\n################################################################################\nRUNNING IN DRYRUN MODE!!!\n################################################################################')
 
 print('\n################################################################################\nSUMMARY OF COMMANDS SUBMITTED:')
 
@@ -117,7 +118,7 @@ print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version_wcu)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version_dw)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
@@ -175,7 +176,7 @@ print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version_wcu)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version_dw)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))

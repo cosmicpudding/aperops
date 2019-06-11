@@ -1,5 +1,13 @@
 { "imaging": 
-	{"sw_corr" : "APERTIF-Release-2_0_1",
-	 "sw_rt"   : "APERTIF-Release-2_0_1",
-	 "sw_wcu"  : "APERTIF-Release-2_0_1"}
+	{"sw_corr" : "APERTIF-Release-2_0_1-opt-Ubuntu14",
+	 "sw_rt"   : "APERTIF-Release-2_0_1-opt-Ubuntu14",
+	 "sw_dw"   : "APERTIF-Release-2_0_1-opt-Ubuntu14"},
+  "sc1": 
+	{"sw_corr" : "APERTIF-Release-2_0_1-opt-Ubuntu14",
+	 "sw_rt"   : "APERTIF-Release-2_0_1-opt-Ubuntu14",
+	 "sw_dw"   : "APERTIF-Release-2_0_1-opt-CentOS7-ARTS"},
+  "sc4": 
+	{"sw_corr" : "APERTIF-Release-2_0_1-opt-Ubuntu14",
+	 "sw_rt"   : "APERTIF-Release-2_0_1-opt-Ubuntu14", 
+     "sw_dw"   : "APERTIF-Release-2_0_1-opt-CentOS7-ARTSCLUSTER"}
 }
