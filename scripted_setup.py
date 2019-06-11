@@ -38,7 +38,7 @@ parser.add_argument('-f', '--firmware',
 	default='main',
 	help='Specify whether to use main or executor setup (default: %(default)s)')
 parser.add_argument('-d', '--dryrun',
-	default=True,
+	default=False,
 	action='store_true',
 	help='Specify whether to execute a dry-run (default: %(default)s)')
 args = parser.parse_args()
@@ -67,6 +67,8 @@ if args.dryrun:
 
 # Specify telescopes
 rts = args.telescopes
+
+print('\nRUNNING IN DRYRUN MODE!!!\n')
 
 print('\n################################################################################\nSUMMARY OF COMMANDS SUBMITTED:')
 
