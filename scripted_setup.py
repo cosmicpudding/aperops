@@ -9,6 +9,7 @@ __version__ = "1.0"
 import os
 import sys
 from argparse import ArgumentParser, RawTextHelpFormatter
+import json
 
 # variables
 com_desp = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/applications/apertif/commissioning/'
@@ -17,14 +18,25 @@ radio_hdl = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/'
 #rts = '23456789abcd'
 #sw_version = 'APERTIF-Release-190225_4-opt-Ubuntu14'
 #sw_version = 'APERTIF-Release-190507_5-opt-Ubuntu14'
-sw_version_corr = 'ARTS-BusyWeek-May2019-opt-r10168-Ubuntu14'
-#sw_version_rt = 'ARTS-BusyWeek-May2019-opt-r10129-Ubuntu14'
-sw_version = 'Task_3055-opt-r10239-Ubuntu14'
+# sw_version_corr = 'ARTS-BusyWeek-May2019-opt-r10168-Ubuntu14'
+# #sw_version_rt = 'ARTS-BusyWeek-May2019-opt-r10129-Ubuntu14'
+# sw_version = 'Task_3055-opt-r10239-Ubuntu14'
 # warm_start = True
 # dryrun = True
 ub7_bad = False
 ub5_bad = False
 # executor = False
+
+# Get software
+sw = json.load(open('sw.json'))
+print(sw)
+# print(sw['imaging']['sw_corr'])
+# sys.exit()
+
+# Load the software versions
+sw_version_corr = sw['imaging']['sw_corr']
+sw_version_rt = sw['imaging']['sw_rt']
+sw_version_wcu = sw['imaging']['sw_wcu']
 
 # Argument parsing
 parser = ArgumentParser(formatter_class=RawTextHelpFormatter)
@@ -68,7 +80,7 @@ if args.dryrun:
 # Specify telescopes
 rts = args.telescopes
 
-print('\nRUNNING IN DRYRUN MODE!!!\n')
+print('\n################################################################################\nRUNNING IN DRYRUN MODE!!!\n################################################################################')
 
 print('\n################################################################################\nSUMMARY OF COMMANDS SUBMITTED:')
 
@@ -90,7 +102,7 @@ print(cmd)
 if not dryrun:
 	os.system(cmd)
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version_rt)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
@@ -100,7 +112,7 @@ print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version_wcu)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
@@ -148,7 +160,7 @@ if ub7_bad or ub5_bad:
 	if not dryrun:
 		os.system(cmd)
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version_rt)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
@@ -158,7 +170,7 @@ print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
-cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version)
+cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-DataWriter -s DataWriter -g wcudata[1] -a" <<< "y" """ % (sw_version_wcu)
 print(cmd)
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
