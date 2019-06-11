@@ -38,7 +38,7 @@ parser.add_argument('-f', '--firmware',
 	default='main',
 	help='Specify whether to use main or executor setup (default: %(default)s)')
 parser.add_argument('-d', '--dryrun',
-	default=False,
+	default=True,
 	action='store_true',
 	help='Specify whether to execute a dry-run (default: %(default)s)')
 args = parser.parse_args()
