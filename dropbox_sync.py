@@ -1,7 +1,12 @@
+#!/usr/bin/env python
 import os
 import sys
 import dropbox
 import glob
+import logging
+import time
+
+logging.basicConfig(format='%(asctime)s %(message)s',level=logging.INFO)
 
 # List contents of specified dropbox folder
 def dropbox_listfiles(dbkey,path):
@@ -21,20 +26,24 @@ def dropbox_download(dbkey,path,fname,sname):
 dbkey = open('.dbkey.txt').read()
 path = '/Surveys'
 outpath = '/home/apertif/operations/surveys/'
-response = dropbox_listfiles(dbkey,path)
 
-# Loop over the files that are found
-for file in response.entries:
-	print (file.name)
+while True:
+	logging.info("Starting dropbox sync")
+	response = dropbox_listfiles(dbkey,path)
+	# Loop over the files that are found
+	for file in response.entries:
 
-	# only consider CSV files
-	if '.csv' in file.name:
+		# only consider CSV files
+		if '.csv' in file.name:
 
-		# Check for existence
-		check = glob.glob('%s%s' % (outpath,file.name))
-
-		# If it doesn't exist
-		if len(check) == 0:
-			#sname = file.name.split(' - ')[1].split('.csv')[0]+'-'+''.join(file.name.split('-')[0].split())+'.csv'
+			# Check for existence
 			sname = outpath+''.join(file.name.split())
-			dropbox_download(dbkey,path,file.name,sname)
+			check = glob.glob('%s' % sname)
+	
+			# If it doesn't exist locally
+			if len(check) == 0:
+				#sname = file.name.split(' - ')[1].split('.csv')[0]+'-'+''.join(file.name.split('-')[0].split())+'.csv'
+     	                	logging.info("Retrieving file: %s to: %s " % (file.name, sname))
+				dropbox_download(dbkey,path,file.name,sname)
+        time.sleep(60)
+			
