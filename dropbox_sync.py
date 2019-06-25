@@ -1,4 +1,12 @@
 #!/usr/bin/env python
+
+# Dropbox sync: Automatically syncs Apertif survey schedules from Dropbox to aperops
+# V.A. Moss (vmoss.astro@gmail.com)
+
+__author__ = "V.A. Moss & A.P. Schoenmakers"
+__date__ = "$26-jun-2019 17:00:00$"
+__version__ = "1.1"
+
 import os
 import sys
 import dropbox
@@ -28,8 +36,9 @@ path = '/Surveys'
 outpath = '/home/apertif/operations/surveys/'
 
 while True:
-	logging.info("Starting dropbox sync")
+	logging.info("Starting Dropbox sync")
 	response = dropbox_listfiles(dbkey,path)
+
 	# Loop over the files that are found
 	for file in response.entries:
 
@@ -43,7 +52,9 @@ while True:
 			# If it doesn't exist locally
 			if len(check) == 0:
 				#sname = file.name.split(' - ')[1].split('.csv')[0]+'-'+''.join(file.name.split('-')[0].split())+'.csv'
-     	                	logging.info("Retrieving file: %s to: %s " % (file.name, sname))
+				logging.info("Retrieving file: %s to: %s " % (file.name, sname))
 				dropbox_download(dbkey,path,file.name,sname)
-        time.sleep(60)
+	
+	# Check every minute for new CSV files			
+	time.sleep(60)
 			
