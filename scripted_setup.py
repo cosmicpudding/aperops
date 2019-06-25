@@ -3,8 +3,8 @@
 # Automated Apertif setup (scripted_setup.py) - imaging version
 # V.A. Moss 05/05/2019 (vmoss.astro@gmail.com)
 __author__ = "V.A. Moss"
-__date__ = "$11-jun-2019 17:00:00$"
-__version__ = "1.0"
+__date__ = "$26-jun-2019 17:00:00$"
+__version__ = "1.1"
 
 import os
 import sys
@@ -14,15 +14,6 @@ import json
 # variables
 com_desp = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/applications/apertif/commissioning/'
 radio_hdl = '/home/apertif/UniBoard_FP7/RadioHDL/trunk/'
-#rts = '2,3,4,5,6,7,8,9,a,b,c,d'
-#rts = '23456789abcd'
-#sw_version = 'APERTIF-Release-190225_4-opt-Ubuntu14'
-#sw_version = 'APERTIF-Release-190507_5-opt-Ubuntu14'
-# sw_version_corr = 'ARTS-BusyWeek-May2019-opt-r10168-Ubuntu14'
-# #sw_version_rt = 'ARTS-BusyWeek-May2019-opt-r10129-Ubuntu14'
-# sw_version = 'Task_3055-opt-r10239-Ubuntu14'
-# warm_start = True
-# dryrun = True
 ub7_bad = False
 ub5_bad = False
 # executor = False
@@ -33,8 +24,6 @@ try:
 except:
 	sw = json.load(open('sw.json'))
 print(sw)
-# print(sw['imaging']['sw_corr'])
-# sys.exit()
 
 # Load the software versions
 sw_version_corr = sw['imaging']['sw_corr']
