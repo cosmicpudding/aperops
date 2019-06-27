@@ -85,8 +85,8 @@ if smode == 'imaging':
 elif smode == 'sc4':
 	if args.artsmode == 'iab':
 		fwmode = 'arts_sc4-iab'
-	elif args.artmode == 'tab':
-		fwmode = 'arts_sc4-tab'
+	elif args.artsmode == 'tab':
+		fwmode = 'arts_sc4'
 elif smode == 'sc1':
 	fwmode = 'arts_sc1'
 
