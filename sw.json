@@ -5,9 +5,9 @@
   "sc1": 
 	{"sw_corr" : "APERTIF-Release-2_0_1-opt-Ubuntu14",
 	 "sw_rt"   : "APERTIF-Release-2_0_1-opt-Ubuntu14",
-	 "sw_dw"   : "APERTIF-Release-2_0_1-opt-CentOS7-ARTS"},
+	 "sw_dw"   : "APERTIF-Release-2_0_1-opt-CentOS7"},
   "sc4": 
 	{"sw_corr" : "APERTIF-Release-2_0_1-opt-Ubuntu14",
 	 "sw_rt"   : "APERTIF-Release-2_0_1-opt-Ubuntu14", 
-     "sw_dw"   : "APERTIF-Release-2_0_1-opt-CentOS7-ARTSCLUSTER"}
+     "sw_dw"   : "APERTIF-Release-2_0_1-opt-CentOS7"}
 }
