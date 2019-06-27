@@ -125,7 +125,16 @@ if not dryrun:
 	os.system(cmd)
 
 # Check it is turned off
-cmd = """ ssh -t apertif@lcu-head.apertif "clush --all 'supervisorctl -p 123 -u user status' | sort" """
+if smode == 'sc4':
+	# Master node
+	cmd = """ ssh arts@arts041.apertif "sudo systemctl status arts-survey.service" """
+	print(cmd)
+	if not dryrun:
+		os.system(cmd)
+	# cluster nodes
+	cmd = """ ssh arts@arts041.apertif "ansible -f 10 artscluster_nodes -a 'sudo systemctl status arts-nodes.service'" """
+else:
+	cmd = """ ssh -t apertif@lcu-head.apertif "clush --all 'supervisorctl -p 123 -u user status' | sort" """
 print(cmd)
 if not dryrun:
 	os.system(cmd)
@@ -225,7 +234,16 @@ if not dryrun:
 	os.system(cmd)
 
 # Check that it is running
-cmd = """ ssh -t apertif@lcu-head.apertif "clush --all 'supervisorctl -p 123 -u user status' | sort" """
+if smode == 'sc4':
+	# Master node
+	cmd = """ ssh arts@arts041.apertif "sudo systemctl status arts-survey.service" """
+	print(cmd)
+	if not dryrun:
+		os.system(cmd)
+	# cluster nodes
+	cmd = """ ssh arts@arts041.apertif "ansible -f 10 artscluster_nodes -a 'sudo systemctl status arts-nodes.service'" """
+else:
+	cmd = """ ssh -t apertif@lcu-head.apertif "clush --all 'supervisorctl -p 123 -u user status' | sort" """
 print(cmd)
 if not dryrun:
 	os.system(cmd)
