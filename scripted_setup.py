@@ -51,6 +51,10 @@ parser.add_argument('-a', '--artsmode',
 	help='Specify which ARTS science mode of tab/iab (default: %(default)s)')
 args = parser.parse_args()
 
+# Specify telescopes
+rts = args.telescopes
+smode = args.science
+
 # Parse the arguments
 if args.mode == 'warm':
 	warm_start = True
@@ -65,6 +69,10 @@ if args.firmware == 'main':
 	executor = False
 elif args.firmware == 'executor': 
 	executor = True
+
+	# Modify the telescope argument
+	rts = ''.join(rts.split(','))
+
 else: 
 	print("Unknown firmware mode specified: %s... exiting!" % args.firmware)
 	sys.exit()
@@ -75,20 +83,28 @@ if args.dryrun:
 else:
 	dryrun = False
 
-# Specify telescopes
-rts = args.telescopes
-smode = args.science
-
 # Main.py names
-if smode == 'imaging':
-	fwmode = 'apertif-dev'
-elif smode == 'sc4':
-	if args.artsmode == 'iab':
-		fwmode = 'arts_sc4-iab'
-	elif args.artsmode == 'tab':
-		fwmode = 'arts_sc4'
-elif smode == 'sc1':
-	fwmode = 'arts_sc1'
+if args.firmware == 'main':
+	if smode == 'imaging':
+		fwmode = 'apertif-dev'
+	elif smode == 'sc4':
+		if args.artsmode == 'iab':
+			fwmode = 'arts_sc4-iab'
+		elif args.artsmode == 'tab':
+			fwmode = 'arts_sc4'
+	elif smode == 'sc1':
+		fwmode = 'arts_sc1'
+# Executor names
+elif args.firmware == 'executor':
+	if smode == 'imaging':
+		fwmode = 'imaging'
+	elif smode == 'sc4':
+		if args.artsmode == 'iab':
+			fwmode = 'arts_sc4_survey'
+		elif args.artsmode == 'tab':
+			fwmode = 'arts_sc4_survey'
+	elif smode == 'sc1':
+		fwmode = 'arts_sc1_timing'
 
 # Load the software versions
 sw_version_corr = sw[args.science]['sw_corr']
@@ -166,12 +182,12 @@ if not dryrun:
 # UNIBOARD LAND BEGINS HERE
 if warm_start:
 	if executor:
-		cmd = """ ssh -t apertif@ccu-corr.apertif "executor --run warm --ccu ccu-corr --telescopes %s --application %s" """ % (rts,fwmode)
+		cmd = """ ssh -t apertif@ccu-corr.apertif "executor --run warm --telescopes %s --application %s --forward" """ % (rts,fwmode)
 	else:
 		cmd = """ ssh -t apertif@ccu-corr.apertif  "python %s/main.py --app %s --tel %s --unb 0:15 --pol 0:1 --rerun" """ % (com_desp,fwmode,rts)
 else:
 	if executor:
-		cmd = """ ssh -t apertif@ccu-corr.apertif "executor --run cold --ccu ccu-corr --telescopes %s --application %s" """ % (rts,fwmode)
+		cmd = """ ssh -t apertif@ccu-corr.apertif "executor --run cold --telescopes %s --application %s --forward" """ % (rts,fwmode)
 	else:
 		cmd = """ ssh -t apertif@ccu-corr.apertif  "python %s/main.py --app %s --tel %s --unb 0:15 --pol 0:1" """ % (com_desp,fwmode,rts)
 print(cmd)
