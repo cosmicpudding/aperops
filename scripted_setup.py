@@ -59,7 +59,12 @@ smode = args.science
 if args.mode == 'warm':
 	warm_start = True
 elif args.mode == 'cold': 
-	warm_start = False
+	# Check to make sure a cold start should be run (only responds to 'y')
+	sanitycheck = input('Are you sure you want to COLD START? (y/n) ')
+	if sanitycheck.lower() == 'y':
+		warm_start = False
+	else:
+		warm_start = True
 else: 
 	print("Unknown mode specified: %s... exiting!" % args.mode)
 	sys.exit()
