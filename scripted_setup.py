@@ -77,7 +77,7 @@ elif args.mode == 'cold':
 		warm_start = False
 	else:
 		warm_start = True
-		print('Please check if you want a cold or warm start and rerun the script!)
+		print('Please check if you want a cold or warm start and rerun the script!')
 		sys.exit()
 else: 
 	print("Unknown mode specified: %s... exiting!" % args.mode)
