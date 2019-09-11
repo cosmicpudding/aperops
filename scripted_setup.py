@@ -51,6 +51,18 @@ parser.add_argument('-a', '--artsmode',
 	help='Specify which ARTS science mode of tab/iab (default: %(default)s)')
 args = parser.parse_args()
 
+# Input handler: https://stackoverflow.com/questions/4915361/whats-the-difference-between-raw-input-and-input-in-python3-x
+from sys import version_info
+if version_info.major == 3:
+    pass
+elif version_info.major == 2:
+    try:
+        input = raw_input
+    except NameError:
+        pass
+else:
+    print("Unknown python version - input function not safe")
+
 # Specify telescopes
 rts = args.telescopes
 smode = args.science
@@ -60,7 +72,7 @@ if args.mode == 'warm':
 	warm_start = True
 elif args.mode == 'cold': 
 	# Check to make sure a cold start should be run (only responds to 'y')
-	sanitycheck = str(raw_input('Are you sure you want to COLD START? (y/n) '))
+	sanitycheck = str(input('Are you sure you want to COLD START? (y/n) '))
 	if sanitycheck.lower() == 'y':
 		warm_start = False
 	else:
