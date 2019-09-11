@@ -60,7 +60,7 @@ if args.mode == 'warm':
 	warm_start = True
 elif args.mode == 'cold': 
 	# Check to make sure a cold start should be run (only responds to 'y')
-	sanitycheck = str(input('Are you sure you want to COLD START? (y/n) '))
+	sanitycheck = str(raw_input('Are you sure you want to COLD START? (y/n) '))
 	if sanitycheck.lower() == 'y':
 		warm_start = False
 	else:
