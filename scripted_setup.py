@@ -86,7 +86,7 @@ else:
 # Main.py names
 if args.firmware == 'main':
 	if smode == 'imaging':
-		fwmode = 'apertif-dev'
+		fwmode = 'apertif-ag'
 	elif smode == 'sc4':
 		if args.artsmode == 'iab':
 			fwmode = 'arts_sc4-iab'
@@ -215,7 +215,7 @@ if ub7_bad or ub5_bad:
 				print(cmd)
 				if not dryrun:
 						os.system(cmd)
-	cmd = """ ssh -t apertif@ccu-corr.apertif '%s/applications/apertif/commissioning/central_status.sh apertif-dev %s 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 postcheck 0,1' """ % (radio_hdl,rts)
+	cmd = """ ssh -t apertif@ccu-corr.apertif '%s/applications/apertif/commissioning/central_status.sh %s %s 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 postcheck 0,1' """ % (fwmode,radio_hdl,rts)
 	print(cmd)	
 	if not dryrun:
 		os.system(cmd)
