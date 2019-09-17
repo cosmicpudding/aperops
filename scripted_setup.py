@@ -133,11 +133,15 @@ sw_version_dw = sw[args.science]['sw_dw']
 if dryrun:
 	print('\n################################################################################\nRUNNING IN DRYRUN MODE!!!\n################################################################################')
 
-print('\n################################################################################\nSUMMARY OF COMMANDS SUBMITTED:')
+cmdsummary = ''
+cmd = '\n################################################################################\nSUMMARY OF COMMANDS SUBMITTED:'
+print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 
 # Turn off telescopes
 cmd = """ ssh -t apertif@lcu-head.apertif "clush -g mac 'supervisorctl -p 123 -u user stop all ' | sort" """
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system(cmd)
 
@@ -151,11 +155,13 @@ elif smode == 'sc4':
 	# Master node
 	cmd = """ ssh arts@arts041.apertif "sudo systemctl stop arts-survey.service" """
 	print(cmd)
+	cmdsummary = cmdsummary + cmd + '\n'
 	if not dryrun:
 		os.system(cmd)
 	# cluster nodes
 	cmd = """ ssh arts@arts041.apertif "ansible -f 10 artscluster_nodes -a 'sudo systemctl stop arts-nodes.service'" """
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system(cmd)
 
@@ -164,6 +170,7 @@ if smode == 'sc4':
 	# Master node
 	cmd = """ ssh arts@arts041.apertif "sudo systemctl status arts-survey.service" """
 	print(cmd)
+	cmdsummary = cmdsummary + cmd + '\n'
 	if not dryrun:
 		os.system(cmd)
 	# cluster nodes
@@ -171,18 +178,21 @@ if smode == 'sc4':
 else:
 	cmd = """ ssh -t apertif@lcu-head.apertif "clush --all 'supervisorctl -p 123 -u user status' | sort" """
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system(cmd)
 
 # Install software on telescopes (pass 1)
 cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version_rt)
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
 # Install software on correlator (pass 1)
 cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version_corr)
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
@@ -194,6 +204,7 @@ elif smode == 'sc1':
 elif smode == 'sc4':
 	cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-ARTSCLUSTER -s ARTSCLUSTER -g artscluster -a" <<< "y" """ % (sw_version_dw)
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
@@ -210,6 +221,7 @@ else:
 	else:
 		cmd = """ ssh -t apertif@ccu-corr.apertif  "python %s/main.py --app %s --tel %s --unb 0:15 --pol 0:1" """ % (com_desp,fwmode,rts)
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system(cmd)
 
@@ -218,36 +230,42 @@ if not dryrun:
 if ub7_bad or ub5_bad:
 	# Read layout of firmware
 	cmd = """ ssh -t apertif@ccu-corr.apertif 'python /home/apertif/UniBoard_FP7/UniBoard/trunk/Software/python/peripherals/util_system_info.py --unb 0:15 --fn 0:3 --bn 0:3 -n 4' """
-	print(cmd)	
+	print(cmd)
+	cmdsummary = cmdsummary + cmd + '\n'
 	if not dryrun:
 		os.system(cmd)
 
 		if ub7_bad:
 				# Disable link
 				cmd = """ ssh -t apertif@ccu-corr.apertif 'python $UPE/peripherals/util_dp_bsn_aligner.py --unb 7 --bn 1 -n 2 -r 0 -s INPUT' """
-				print(cmd)	
+				print(cmd)
+				cmdsummary = cmdsummary + cmd + '\n'
 				if not dryrun:
 						os.system(cmd)
 		if ub5_bad:
 				# Disable link                                                                                                                                                                                                         
 				cmd = """ ssh -t apertif@ccu-corr.apertif 'python $UPE/peripherals/util_dp_bsn_aligner.py --unb 5 --bn 1 -n 2 -r 0 -s INPUT' """
 				print(cmd)
+				cmdsummary = cmdsummary + cmd + '\n'
 				if not dryrun:
 						os.system(cmd)
 	cmd = """ ssh -t apertif@ccu-corr.apertif '%s/applications/apertif/commissioning/central_status.sh %s %s 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 postcheck 0,1' """ % (fwmode,radio_hdl,rts)
-	print(cmd)	
+	print(cmd)
+	cmdsummary = cmdsummary + cmd + '\n'
 	if not dryrun:
 		os.system(cmd)
 
 # Install software on telescopes (pass 2)
 cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-LCU-RT -s LCU-RT -g lcu-rt[2-13] -a" <<< "y" """ % (sw_version_rt)
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
 # Install software on correlator (pass 2)
 cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-CCU-Corr -s CCU-Corr -g ccu-corr -a" <<< "y" """ % (sw_version_corr)
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
@@ -259,12 +277,14 @@ elif smode == 'sc1':
 elif smode == 'sc4':
 	cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -b %s-ARTSCLUSTER -s ARTSCLUSTER -g artscluster -a" <<< "y" """ % (sw_version_dw)
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system("bash -c '{}'".format(cmd))
 
 # Check installation
 cmd = """ ssh -t apertif@lcu-head.apertif "Apertif_install.sh -c -g all" """
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system(cmd)
 
@@ -273,6 +293,7 @@ if smode == 'sc4':
 	# Master node
 	cmd = """ ssh arts@arts041.apertif "sudo systemctl status arts-survey.service" """
 	print(cmd)
+	cmdsummary = cmdsummary + cmd + '\n'
 	if not dryrun:
 		os.system(cmd)
 	# cluster nodes
@@ -280,6 +301,7 @@ if smode == 'sc4':
 else:
 	cmd = """ ssh -t apertif@lcu-head.apertif "clush --all 'supervisorctl -p 123 -u user status' | sort" """
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun:
 	os.system(cmd)
 
@@ -291,7 +313,12 @@ elif smode == 'sc1':
 elif smode == 'sc4':
 	cmd = """ ssh arts@arts001.apertif "packet_rate" """
 print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
 if not dryrun and smode == 'imaging':
 	os.system(cmd)
 
-print('################################################################################\n')
+cmd = '################################################################################\n'
+print(cmd)
+cmdsummary = cmdsummary + cmd + '\n'
+
+print(cmdsummary)
