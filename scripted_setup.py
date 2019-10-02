@@ -67,6 +67,29 @@ else:
 rts = args.telescopes
 smode = args.science
 
+# Expected telescopes
+scopesdict = {'imaging':'2,3,4,5,6,7,8,9,a,b,c,d',
+			  'sc1': '2,3,4,5,6,7,8,9',
+			  'sc4': '2,3,4,5,6,7,8,9'}
+
+# Check if default doesn't match and warn user
+expected_scopes = scopesdict[smode]
+if rts != expected_scopes:
+	print('\nWARNING!!!\nExpected telescopes: %s\nSpecified telescopes: %s\n' % (expected_scopes,rts))
+
+	try: 
+		# Python 3
+		proceed = input('Do you want to proceed? (y/n) ')
+	except:
+		# Python 2
+		proceed = raw_input('Do you want to proceed? (y/n) ')
+
+	if proceed != 'y':
+		print('... exiting!')
+		sys.exit()
+	else:
+		print('Okay, I will continue with the telescopes you specified...')
+
 # Parse the arguments
 if args.mode == 'warm':
 	warm_start = True
