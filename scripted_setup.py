@@ -69,7 +69,7 @@ smode = args.science
 
 # Expected telescopes
 scopesdict = {'imaging':'2,3,4,5,6,7,8,9,a,b,c,d',
-			  'sc1': '2,3,4,5,6,7,8,9',
+			  'sc1': '2,3,4,5,6,7,8,9,a,b',
 			  'sc4': '2,3,4,5,6,7,8,9'}
 
 # Check if default doesn't match and warn user
