@@ -337,7 +337,7 @@ elif smode == 'sc4':
 	cmd = """ ssh arts@arts001.apertif "packet_rate" """
 print(cmd)
 cmdsummary = cmdsummary + cmd + '\n'
-if not dryrun and smode == 'imaging':
+if not dryrun:
 	os.system(cmd)
 
 cmd = '################################################################################\n'
