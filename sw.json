@@ -9,5 +9,5 @@
   "sc4": 
 	{"sw_corr" : "APERTIF-Release-2_1_11-opt-Ubuntu14",
 	 "sw_rt"   : "APERTIF-Release-2_1_12-opt-Ubuntu14",
-	 "sw_dw"   : "ARTS_debug_July2020-debug-r11426-CentOS7-ARTSCLUSTER"}
+	 "sw_dw"   : "ARTS_debug_July2020-debug-r11426-CentOS7"}
 }
